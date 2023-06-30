@@ -1,26 +1,3 @@
-- [[#1. Recon|1. Recon]]
-	- [[#1. Recon#scanner|scanner]]
-	- [[#1. Recon#host and port|host and port]]
-	- [[#1. Recon#ipv6|ipv6]]
-	- [[#1. Recon#os|os]]
-	- [[#1. Recon#database|database]]
-	- [[#1. Recon#directory|directory]]
-	- [[#1. Recon#dns|dns]]
-	- [[#1. Recon#subdomain|subdomain]]
-	- [[#1. Recon#cdn|cdn]]
-	- [[#1. Recon#waf|waf]]
-	- [[#1. Recon#web source code|web source code]]
-	- [[#1. Recon#website|website]]
-	- [[#1. Recon#asset|asset]]
-- [[#2. Vulns|2. Vulns]]
-- [[#3. Privilege Escalation|3. Privilege Escalation]]
-- [[#4. Post Pentest|4. Post Pentest]]
-- [[#5. AWD|5. AWD]]
-- [[#6. Social Engineer|6. Social Engineer]]
-- [[#7. Software Engineer|7. Software Engineer]]
-- [[#Appendix. 靶场|Appendix. 靶场]]
-- [[#Appendix. 学习资料|Appendix. 学习资料]]
-
 # 1. Recon
 
 ## scanner

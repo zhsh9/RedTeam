@@ -2,5 +2,8 @@
   "showLineNumber": true,
   "trashOption": "local",
   "alwaysUpdateLinks": true,
-  "attachmentFolderPath": "00.asset"
+  "attachmentFolderPath": "00.asset",
+  "legacyEditor": false,
+  "livePreview": true,
+  "spellcheck": false
 }

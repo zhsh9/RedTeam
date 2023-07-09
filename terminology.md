@@ -1,0 +1,86 @@
+- 域名 DOMAIN
+	- 由一串用点分隔的名字组成的Internet上某一台计算机或计算机组的名称，用于在数据传输时对计算机的定位标识（有时也指地理位置）
+	- 可以给安全测试提供更多的测试点，方便获取更多相关信息
+- 域名系统 DNS
+	- 是一个域名和IP地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。DNS使用UDP端口53。对于每一级域名长度的限制是63个字符，域名总长度则不能超过253个字符
+	- 相关的安全问题
+		- 缓存投毒
+		- DNS劫持
+		- 域名劫持
+		- DNS DDoS攻击
+- 内容分发网络 CDN
+	- 是构建在数据网络上的一种分布式的内容分发网
+	- 可以提高系统的响应速度，也可以一定程度的拦截/f防御攻击
+- 后门 BACKDOOR
+	- 通常指那些绕过安全性控制而获取对程序或系统访问权的程序方法
+	- 在软件的开发阶段，程序员常常会在软件内创建后门程序以便可以修改程序设计中的缺陷
+- 网站 WEB
+	- 网站源码：分脚本类型和应用方向
+	- 操作系统：windows, linux
+	- 中间件（搭建平台）：apache, nginx, iis, tomcat ...
+	- 数据库：access, mysql, mssql, oracle, postsql ...
+	- 相关安全漏洞
+		- 源码类
+			- SQL注入
+			- XSS
+			- 上传
+			- 代码执行
+			- 逻辑漏洞
+			- 反序列化
+			- 变量覆盖
+		- 中间件
+			- 未授权访问
+			- 变量覆盖
+		- 数据库
+			- 弱口令
+			- 权限提升
+		- 系统层
+			- 提权
+			- 远程代码执行
+		- 其他第三方、APP或PC应用结合
+- HTTP, 80
+- HTTPS (SSL/TSL over TCP), 443
+- HTTP请求
+	- 请求行
+		- 请求方法
+			- GET
+			- HEAD
+			- POST
+			- PUT
+			- DELETE
+			- OPTION
+			- CONNECT
+		- 请求URL
+		- HTTP版本
+	- 请求头
+		- Accept
+		- Accept-Language
+		- Accept-Charset
+		- Accept-Encoding
+		- User-Agent
+		- Connection
+		- Cookie
+		- Referer
+		- Content-Type
+	- 请求数据（POST）
+		- Content-Type
+		- Content-Length
+- HTTP响应
+	- 状态行
+		- 协议版本
+		- 状态代码
+		- 状态描述
+	- 响应头
+		- 服务器类型
+		- 日期
+		- 长度
+		- 内容类型等
+	- 响应数据
+- HTTP响应码
+	- 1xx：收到
+	- 2xx：成功
+	- 3xx：重定向
+	- 4xx：客户端错误
+	- 5xx：服务端错误
+- 对象关系映射 ORM (Object-relational Mapping)
+	- 编程中，把面向对象的概念和数据库中表的概念对应起来

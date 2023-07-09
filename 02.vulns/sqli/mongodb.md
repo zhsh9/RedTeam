@@ -1,0 +1,2 @@
+- 数据传输采用JSON
+	- tojson()输出JSON数据

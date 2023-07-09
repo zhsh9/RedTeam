@@ -1,42 +1,3 @@
-- [1. Recon](#1.%20Recon)
-	- [quick inventory](#quick%20inventory)
-	- [wordlist](#wordlist)
-	- [integrated scanner](#integrated%20scanner)
-	- [host and port](#host%20and%20port)
-	- [ipv6](#ipv6)
-	- [os](#os)
-	- [database](#database)
-	- [directory](#directory)
-	- [smb](#smb)
-	- [dns](#dns)
-	- [subdomain](#subdomain)
-	- [cdn](#cdn)
-	- [waf](#waf)
-	- [web source code](#web%20source%20code)
-	- [website](#website)
-	- [asset](#asset)
-- [2. Vulns](#2.%20Vulns)
-	- [SQL注入](#SQL%E6%B3%A8%E5%85%A5)
-	- [文件上传](#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0)
-	- [XSS](#XSS)
-	- [命令注入](#%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5)
-	- [CSRF](#CSRF)
-	- [反序列化](#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96)
-	- [代码审计](#%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1)
-- [3. Privilege Escalation](#3.%20Privilege%20Escalation)
-	- [better shell](#better%20shell)
-	- [reverse shell](#reverse%20shell)
-	- [methodology](#methodology)
-	- [手工枚举](#%E6%89%8B%E5%B7%A5%E6%9E%9A%E4%B8%BE)
-	- [自动枚举](#%E8%87%AA%E5%8A%A8%E6%9E%9A%E4%B8%BE)
-- [4. Post Pentest](#4.%20Post%20Pentest)
-- [5. AWD](#5.%20AWD)
-- [6. Social Engineer](#6.%20Social%20Engineer)
-- [7. Software Engineer](#7.%20Software%20Engineer)
-- [Appendix. 靶场](#Appendix.%20%E9%9D%B6%E5%9C%BA)
-- [Appendix. 效率工具](#Appendix.%20%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7)
-- [Appendix. 学习资料](#Appendix.%20%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99)
-
 
 # 1. Recon
 
@@ -115,6 +76,38 @@ do
 done
 ```
 
+## web scanner
+
+- [whatweb](https://github.com/urbanadventurer/WhatWeb)
+```bash
+whatweb [opts] <urls>
+```
+
+## web path
+
+- [dirb](https://www.kali.org/tools/dirb/)
+```bash
+dirb $IP $Wordlist
+```
+- [dirsearch](https://github.com/maurosoria/dirsearch)
+	- -t \<thead\>
+	- -r, brute-force recursively
+	- -i \<code\>, include status codes
+	- -x \<codes\>, exclude status codes
+	- -m \<method\>
+	- -d \<data\>
+	- -H \<headers\>
+	- --user-agent=\<ua\>
+	- --cookie=\<ck\>
+```bash
+dirsearch -u <target> -e <extensions> [options]
+```
+- [ffuf](https://www.kali.org/tools/ffuf/)
+```bash
+ffuf -fs 185 -c -w \$(fzf-wordlists) -H 'Host: FUZZ.org' -u "http://$TARGET/"
+ffuf -w /usr/share/dirb/wordlists/common.txt -fc 403,404 -fs 185 -u "http://$TARGET/FUZZ" -p 1
+```
+
 ## ipv6
 
 - nmap
@@ -135,7 +128,7 @@ nmap -6 --min-rate 10000 -p- $IPv6
 2、WINDOWS 95/98     TTL：32
 3、UNIX              TTL：255
 4、LINUX             TTL：64
-5、WIN7         	    TTL：64
+5、WIN7              TTL：64
 ```
 - special port: 22, 139, 445, 1433, 3389
 
@@ -158,18 +151,6 @@ nmap -6 --min-rate 10000 -p- $IPv6
 		- redis, 6379
 		- memcached, 11211
 
-## directory
-
-- [dirb](https://www.kali.org/tools/dirb/)
-```bash
-dirb $IP $Wordlist
-```
-- [ffuf](https://www.kali.org/tools/ffuf/)
-```bash
-ffuf -fs 185 -c -w \$(fzf-wordlists) -H 'Host: FUZZ.org' -u "http://$TARGET/"
-ffuf -w /usr/share/dirb/wordlists/common.txt -fc 403,404 -fs 185 -u "http://$TARGET/FUZZ" -p 1
-```
-
 ## smb
 
 - [enum4linux](https://github.com/CiscoCXSecurity/enum4linux)
@@ -179,9 +160,21 @@ enum4linux -A $IP
 
 ## dns
 
-- dig
-- nslookup
-- whois
+- local host config
+	- linux/unix/macos: `/etc/resolv.conf`
+	- windows: `%windir%\system32\drivers\etc\hosts`
+- [dig](https://www.kali.org/tools/bind9/#dig)
+```bash
+dig @<dns> <domain> [+short]
+```
+- [nslookup](https://www.kali.org/tools/bind9/#nslookup)
+```bash
+nslookup [-qt=A|AAAA|CNAME|MX|.] <target.com> <dns>
+```
+- [whois](https://www.kali.org/tools/whois/#whois)
+```bash
+whois <target.com>
+```
 - [theHaverster](https://github.com/laramies/theHarvester)
 	- email
 	- subdomain
@@ -210,6 +203,7 @@ gobuster vhost -u <http://target.com> -w /path/to/wordlist.txt --append-domain -
 	- [https://ip.tool.chinaz.com/](https://ip.tool.chinaz.com/)
 	- [https://get-site-ip.com/](https://get-site-ip.com/)
 	- [https://tools.ipip.net/cdn.php/](https://tools.ipip.net/cdn.php/)
+- nslookup <target.com>
 
 ## waf
 
@@ -277,13 +271,214 @@ gobuster vhost -u <http://target.com> -w /path/to/wordlist.txt --append-domain -
 
 # 2. Vulns
 
-## SQL注入
+Reference:
+
+- [OWASP Top10](https://github.com/OWASP/Top10)
+
+## 2.1 Injection
+
+- when vulnerable
+	- user-supplied data is not validated, filtered, sanitized
+	- dynamic queries or non-parameterized calls (without context-aware escaping) are used directly in the interpreter
+	- hostile data is used with orm search parameters to extract additional, sensitive data
+	- hostile data is directly used or concatenated to generate structure and malicious data in dynamic queries, commands, stored procedures
+- how to prevent: keep data seperate from commands and queries
+	- a safe API
+	- positive server-side input validation
+	- escape speacial characters (by specific escape syntax for interpreter)
+	- limit mass disclosure of records (SQLi, by controls like LIMIT and etc)
+
+### SQL Injection
+
+reference
+- [SQL Injection Cheat Sheet](https://www.invicti.com/blog/web-security/sql-injection-cheat-sheet/)
+- [PayloadsAllTheThings - SQL Injection](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection)
+
+content summ
+
+- 数据库类型
+	- access
+	- mysql
+	- mssql
+	- oracle
+	- postsql
+	- sqllist
+	- mongodb
+- 提交方法
+	- GET
+	- POST
+	- Cookie
+	- Request
+	- HTTP Header
+- 数据类型
+	- 数字型
+	- 字符型
+- 常用关键字
+	- select
+	- insert
+	- delete
+	- update
+	- order by
+- 常用函数
+	- 查询数据库
+		- version()
+	- 数据库名称
+		- database()
+	- 数据库用户
+		- user()
+	- 操作系统
+		- @@version_compile_os
+	- 文件读写操作
+		- load_file()
+		- into outfile
+- 有无回显
+	- 回显注入
+	- 盲注 (blind inj)
+	- 延时注入 (time delay)
+	- 布尔注入 (boolean-based inj)
+	- 报错注入 (error-based inj)
+	- Union注入
+- 注入扩展
+	- 加解密注入
+	- JSON注入
+	- LADP注入
+	- DNSlog注入
+	- 二次注入
+	- 堆叠注入
+- WAF
+	- 更改提交方式
+	- 大小写混合
+	- 加解密编解码
+	- 等价函数替换
+	- 特殊符号混用
+	- 数据库特性
+	- HTTP参数污染
+		- 如果出现多个相同参数，不同的服务器搭建网站会出现参数接受的差别，从而令原有的参数失效。
+		- PHP+Apache, $\_GET("param") -> Last
+		- JSP+Tomcat, Request.getParameter("param") -> First
+		- Perl+Apache, Param("param") -> First
+		- Python+Apache, Getvalue("param") -> All(list)
+		- ASP+IIS, Request.QueryString("param") -> All(comma)
+	- 垃圾数据溢出
+	- 注释符混用
+	- 反序列化
+	- Fuzz
+- WAF绕过
+	- IP白名单 (伪造客户端IP, http header)
+		- x-forwarded-for
+		- x-remote-ip
+		- x-originating-ip
+		- x-remote-addr
+		- x-read-ip
+	- 静态资源
+		- .css
+		- .js
+		- .swf
+		- .jpg
+	- URL白名单
+	- 爬虫白名单
+		- user-agent
+			- Mozilla/5.0+(compatible;+Baiduspider/2.0;++http://www.baidu.com/search/spider.html)
+			- Mozilla/5.0+(compatible;+Googlebot/2.1;++http://www.google.com/bot.html)
+		- 通过行为判别
+	- URL编码
+	- 客制化自动化工具
+- 防御方案
+	- 代码加载过滤
+	- WAF部署
+
+#### 注入点判断
+
+```
+# 数字型
+and 1 = 1 --
+and 1 = 2 -- 
+
+# 字符型
+' and 1 = 1 -- 
+' and 1 = 2 -- 
+
+# order by 判断回显个数
+data order by 1; data order by 2; ...
+data' order by 1; data' order by 2; ...
+```
+
+#### information_schema 的利用
+
+适用范围
+- mysql
+- postgresql
+- sql server (mssql)
+
+利用方式
+- select * from information_schema.schemata
+- where table_schama = ''
+- select * from information_schema.tables
+- where table_name = ''
+- select * from information_schema.columns
+- where column_name = ''
+
+#### sqlmap usage
+
+- [github page](https://github.com/sqlmapproject/sqlmap)
+- [kali doc page](https://www.kali.org/tools/sqlmap/#sqlmap)
+
+```bash
+# GET
+sqlmap -u <url>
+# POST
+sqlmap -u <url> --data "<POST data>" -p <param>
+
+# Dump data
+sqlmap -u <url> ... --dbs
+sqlmap -u <url> ... -D <db> --tables
+sqlmap -u <url> ... -D <db> -T <tb> --columns
+sqlmap -u <url> ... -D <db> -T <tb> -C <col> --dump
+
+# Get shell
+sqlmap -u <url> --os-shell
+
+# Injection Techniques
+	##B(boolean-based blind), E(error-based), U(union query-based), S(stacked queries), T(time-based blind), Q(inline queries)
+sqlmap -u <url> ... --technique=BEUSTQ
+
+# bypass waf by ua exchange
+sqlmap -u <url> ... --random-agent
+sqlmap -u <url> ... --user-agent="Mozilla/5.0+(compatible;+Googlebot/2.1;++http://www.google.com/bot.html)"
+```
+
+#### 注入类型
+
+- 布尔注入
+- 报错注入
+- UNION注入
+- 堆叠注入
+- 时间盲注
+- 内联查询
+- DNSlog注入
+	- http:/ceye.io/
+	- https://github.com/ADOOO/DnslogSqlinj
+
+#### HTTP 参数控制
+
+![](00.asset/Pasted%20image%2020230710063615.png)
+
+#### 表达式表达数字
+
+![](00.asset/Pasted%20image%2020230710064222.png)
+
+### Command Injection
+
+### ORM Injection
+
+### Server-side Template Injection
+
+reference:
+- https://portswigger.net/research/server-side-template-injection
+
+### XSS
 
 ## 文件上传
-
-## XSS
-
-## 命令注入
 
 ## CSRF
 
@@ -307,7 +502,8 @@ python -c "import pty;pty.spawn('/bin/bash')"
 ##After ctrl+z
 stty raw -echo; fg
 ```
-- [online shellcheck](https://www.shellcheck.net)
+- [shellcheck](https://www.shellcheck.net)
+- [explainshell](https://explainshell.com)
 
 ## reverse shell
 

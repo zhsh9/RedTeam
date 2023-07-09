@@ -1,2 +1,6 @@
+# obsidian
 .trash
 .trash/*
+
+# macOS
+.DS_Store

@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "be4cab43b1047e75",
+        "id": "8fd6d90bb9725624",
         "type": "tabs",
         "children": [
           {
-            "id": "2f4b00d59670e981",
+            "id": "28761bc53f1264bc",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -69,8 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "2f3288015fc681a3",
@@ -135,8 +134,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 226.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -149,12 +147,26 @@
       "workspaces:Manage workspace layouts": false
     }
   },
-  "active": "2f4b00d59670e981",
+  "active": "f1d222c1d4381a76",
   "lastOpenFiles": [
-    "Untitled.canvas",
+    "terminology.md",
     "README.md",
+    "bookmark.md",
+    "HTTP参数污染.md",
+    "00.asset/Pasted image 20230710064222.png",
+    "00.asset/Pasted image 20230710063615.png",
+    "02.vulns/sqli/mongodb.md",
+    "00.asset/Pasted image 20230710045704.png",
     "00.asset",
-    "00.asset/Pasted image 20230627173939.png",
-    "00.asset"
+    "Pasted image 20230710045401.png",
+    "02.vulns/sqli/mysql.md",
+    "02.vulns/sqli",
+    "03.pe",
+    "Untitled 1",
+    "Untitled",
+    "01.recon",
+    "02.vulns",
+    "Untitled.canvas",
+    "00.asset/Pasted image 20230627173939.png"
   ]
 }

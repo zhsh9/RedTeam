@@ -5,5 +5,7 @@
   "attachmentFolderPath": "00.asset",
   "legacyEditor": false,
   "livePreview": true,
-  "spellcheck": false
+  "spellcheck": false,
+  "useMarkdownLinks": true,
+  "newLinkFormat": "absolute"
 }

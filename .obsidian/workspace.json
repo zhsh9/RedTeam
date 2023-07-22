@@ -15,25 +15,26 @@
               "type": "markdown",
               "state": {
                 "file": "README.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               },
               "pinned": true
             }
           },
           {
-            "id": "2be77518e09c0e56",
+            "id": "f4be99537ba63d63",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "03.pe/SUID-SGID.md",
+                "file": "00.basic/linux/sudo.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -100,7 +101,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "00.basic/linux/sudo.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -117,7 +118,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "README.md",
+                "file": "00.basic/linux/sudo.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -140,7 +141,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md"
+                "file": "00.basic/linux/sudo.md"
               }
             }
           }
@@ -162,20 +163,27 @@
       "workspaces:Manage workspace layouts": false
     }
   },
-  "active": "b50c45a828205ec4",
+  "active": "f4be99537ba63d63",
   "lastOpenFiles": [
-    "00.basic/linux/cron.md",
-    "03.pe/SUID-SGID.md",
+    "background.md",
     "README.md",
-    "00.basic/linux/tar.md",
-    "03.pe/UGO.md",
-    "00.basic/linux/bash.md",
-    "00.basic/linux",
+    "00.basic/linux/sudo.md",
     "terminology.md",
-    "00.basic",
-    "02.vulns/sqli/mongodb.md",
-    "02.vulns/sqli/mysql.md",
     "bookmark.md",
+    "03.pe/SUID-SGID.md",
+    "00.basic/linux/Untitled.md",
+    "00.basic/linux/tar.md",
+    "02.vulns/sqli/mysql.md",
+    "00.basic/linux/bash.md",
+    "00.basic/linux/cron.md",
+    "00.basic/service/NFS.md",
+    "02.vulns/sqli/mongodb.md",
+    "00.basic/linux/motd.md",
+    "00.basic/linux/doas.md",
+    "00.basic/service",
+    "03.pe/UGO.md",
+    "00.basic/linux",
+    "00.basic",
     "HTTP参数污染.md",
     "00.asset/Pasted image 20230710064222.png",
     "00.asset/Pasted image 20230710063615.png",

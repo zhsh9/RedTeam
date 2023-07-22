@@ -27,3 +27,5 @@ tar -czf backup.tar.gz --checkpoint=1000 --checkpoint-action='log=checkpoint.log
 在命令执行过程中，tar 将每 1000 个文件输出一个检查点信息，并将检查点信息记录到 `checkpoint.log` 文件中。如果命令中断，可以使用 `--checkpoint` 选项和检查点文件来恢复命令的运行。
 
 需要注意的是，`--checkpoint` 选项需要 tar 版本 1.15 或更高版本支持。
+
+# 常见用法

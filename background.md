@@ -14,7 +14,7 @@
 
 ## Shell 使用
 
-- bash
+- [bash](00.basic/linux/bash)
 - zsh
 - fish
 - powershell

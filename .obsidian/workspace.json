@@ -22,7 +22,7 @@
             }
           },
           {
-            "id": "d587171b51f4741d",
+            "id": "1c3095bf1a6cd7bd",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -34,31 +34,18 @@
             }
           },
           {
-            "id": "e7d4b9501d97e96a",
+            "id": "d587171b51f4741d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Bookmark.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "a7309ac2c774f7f4",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Terminology.md",
+                "file": "00.background/web-frontend/html.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
@@ -124,7 +111,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Terminology.md",
+                "file": "README.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -141,7 +128,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Terminology.md",
+                "file": "README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -164,7 +151,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Terminology.md"
+                "file": "README.md"
               }
             }
           }
@@ -186,11 +173,15 @@
       "workspaces:Manage workspace layouts": false
     }
   },
-  "active": "a7309ac2c774f7f4",
+  "active": "b50c45a828205ec4",
   "lastOpenFiles": [
-    "Bookmark.md",
+    "00.background/web-frontend/html.md",
     "Background.md",
     "README.md",
+    "00.background/web-frontend",
+    "00.background",
+    "Terminology.md",
+    "Bookmark.md",
     "03.pe/ACL.md",
     "03.pe/AppArmor-SELinux.md",
     "03.pe/Capabilities.md",
@@ -200,7 +191,6 @@
     "02.vulns/sqli/mysql.md",
     "00.basic/linux/bash.md",
     "00.basic/linux/dstat.md",
-    "Terminology.md",
     "00.basic/linux/tar.md",
     "00.basic/linux/cron.md",
     "00.basic/service/NFS.md",
@@ -220,7 +210,6 @@
     "03.pe",
     "Untitled 1",
     "01.recon",
-    "02.vulns",
     "Untitled.canvas",
     "00.asset/Pasted image 20230627173939.png"
   ]

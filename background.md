@@ -22,7 +22,7 @@
 ## 编程语言
 
 - web
-	- html
+	- [html](obsidian://open?vault=RedTeam&file=00.background%2Fweb-frontend%2Fhtml)
 	- css
 	- js
 - python

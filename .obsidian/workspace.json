@@ -20,21 +20,8 @@
               },
               "pinned": true
             }
-          },
-          {
-            "id": "f4be99537ba63d63",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "00.basic/linux/sudo.md",
-                "mode": "source",
-                "source": false
-              }
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -101,7 +88,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "00.basic/linux/sudo.md",
+                "file": "README.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -118,7 +105,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "00.basic/linux/sudo.md",
+                "file": "README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -141,7 +128,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "00.basic/linux/sudo.md"
+                "file": "README.md"
               }
             }
           }
@@ -163,25 +150,28 @@
       "workspaces:Manage workspace layouts": false
     }
   },
-  "active": "f4be99537ba63d63",
+  "active": "b50c45a828205ec4",
   "lastOpenFiles": [
-    "background.md",
+    "03.pe/SUID-SGID-StickyBit.md",
     "README.md",
-    "00.basic/linux/sudo.md",
-    "terminology.md",
+    "03.pe/AppArmor-Selinux.md",
+    "03.pe/ACL.md",
+    "03.pe/Capabilities.md",
+    "03.pe/UGO.md",
     "bookmark.md",
-    "03.pe/SUID-SGID.md",
-    "00.basic/linux/Untitled.md",
-    "00.basic/linux/tar.md",
+    "00.basic/linux/sudo.md",
     "02.vulns/sqli/mysql.md",
+    "background.md",
     "00.basic/linux/bash.md",
+    "00.basic/linux/dstat.md",
+    "terminology.md",
+    "00.basic/linux/tar.md",
     "00.basic/linux/cron.md",
     "00.basic/service/NFS.md",
     "02.vulns/sqli/mongodb.md",
     "00.basic/linux/motd.md",
     "00.basic/linux/doas.md",
     "00.basic/service",
-    "03.pe/UGO.md",
     "00.basic/linux",
     "00.basic",
     "HTTP参数污染.md",

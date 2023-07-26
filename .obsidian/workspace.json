@@ -20,6 +20,18 @@
               },
               "pinned": true
             }
+          },
+          {
+            "id": "a496ad6d026f83fb",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "03.pe/ACL.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ]
       }
@@ -152,11 +164,11 @@
   },
   "active": "b50c45a828205ec4",
   "lastOpenFiles": [
-    "03.pe/SUID-SGID-StickyBit.md",
-    "README.md",
-    "03.pe/AppArmor-Selinux.md",
     "03.pe/ACL.md",
+    "README.md",
+    "03.pe/AppArmor-SELinux.md",
     "03.pe/Capabilities.md",
+    "03.pe/SUID-SGID-StickyBit.md",
     "03.pe/UGO.md",
     "bookmark.md",
     "00.basic/linux/sudo.md",
